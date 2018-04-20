@@ -24,6 +24,12 @@ class App extends Component {
       this.setState({messages: tempMessages});
       socket.emit("testResponse", {desc: "I responded!"});
     });
+    socket.on("returnEvent", data => {
+      let tempMessages = [...this.state.messages];
+      tempMessages.push(data);
+      console.log("rendering a third response!");
+      this.setState({messages: tempMessages});
+    })
   
   }
   
