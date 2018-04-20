@@ -17,12 +17,12 @@ class App extends Component {
   }
   
   componentDidMount(){
-    
     socket.on('testEvent', data => {
       let tempMessages = [...this.state.messages];
       tempMessages.push(data);
       console.log("rendering...");
       this.setState({messages: tempMessages});
+      socket.emit("testResponse", {desc: "I responded!"});
     });
   
   }
