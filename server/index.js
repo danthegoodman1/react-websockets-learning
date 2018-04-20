@@ -15,7 +15,7 @@ io.on('connection', function(socket) {
     setInterval(function(){
         socket.emit('testEvent', "Did it work?");
         console.log("sending EVENTTTTT") 
-    }, 3000);
+    }, 6000);
     
     
     
