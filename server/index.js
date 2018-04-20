@@ -18,11 +18,10 @@ io.on('connection', function(socket) {
     }, 6000);
     
     
-    
-    
    
    socket.on('testResponse', function(data){
       console.log(`The client return the message: "${data.desc}"!`);
+      socket.emit("returnEvent", "I returned!!!!");
    });
 
    //Whenever someone disconnects this piece of code executed
