@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import Message from './message/Message';
 import io from 'socket.io-client'
-
 const socketServer = "https://socketio-tutorial-dgoodman.c9users.io/";
 // const socket = io.connect(socketServer);
 const socket  = io("https://socketio-tutorial-dgoodman.c9users.io/");
+
+function sendSomething(){
+    socket.emit('testResponse', {desc: "GURBWIUBGR"});
+    socket.emit('testResponse', {desc: "WGRUOBGIOWHR"});
+}
 
 class App extends Component {
   
@@ -16,6 +21,7 @@ class App extends Component {
     } 
   }
   
+  
   componentDidMount(){
     socket.on('testEvent', data => {
       let tempMessages = [...this.state.messages];
@@ -23,6 +29,7 @@ class App extends Component {
       console.log("rendering...");
       this.setState({messages: tempMessages});
       socket.emit("testResponse", {desc: "I responded!"});
+      sendSomething();
     });
     socket.on("returnEvent", data => {
       let tempMessages = [...this.state.messages];
@@ -32,11 +39,6 @@ class App extends Component {
     })
   
   }
-  
-  sendSomething = () => {
-    this.state.socket.emit('testResponse', {desc: "hello"});
-    this.state.socket.emit('testResponse', {desc: "hello2"});
-  };
   
   
   makeid = () => {
@@ -68,7 +70,7 @@ class App extends Component {
       messageTime = (
         <div>
           {this.state.messages.map( message => {
-            return <p>{message}</p>
+            return <Message message={message} author="Demo Author"/>
           })}
         </div>
         
